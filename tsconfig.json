@@ -1,0 +1,33 @@
+{
+  "compilerOptions": {
+    // Module settings
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "isolatedModules": true,
+    "esModuleInterop": true,
+    "target": "es2015" ,
+
+    // React settings
+    "jsx": "react-jsx",
+    "lib": ["DOM", "DOM.Iterable", "ESNext"],
+
+    // Strict type checking
+    "strict": true,
+    "skipLibCheck": true,
+    "noEmit": true,
+    "allowJs": true,
+
+    // Module import settings
+    "resolveJsonModule": true,
+    "allowSyntheticDefaultImports": true,
+    "forceConsistentCasingInFileNames": true,
+
+    // Base URL and paths (adjust these according to your project structure)
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./src/*"]
+    }
+  },
+  "include": ["src/**/*.ts", "src/**/*.tsx"],
+  "exclude": ["node_modules"]
+}

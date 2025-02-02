@@ -71,12 +71,12 @@ const UnixTimeConverter = () => {
               value={timestamp}
               onChange={(e) => setTimestamp(e.target.value)}
               placeholder="Enter Unix timestamp..."
-              className="flex-1 bg-gray-800 text-gray-300 p-2 rounded focus:ring-1 focus:ring-blue-500 focus:outline-none"
+              className="flex-1 bg-gray-100 dark:bg-[#1e293b] text-gray-900 dark:text-gray-300 p-2 rounded border border-gray-300 dark:border-gray-700 focus:ring-1 focus:ring-blue-500 focus:outline-none transition-colors"
             />
             <Button onClick={updateCurrentTime}>Now</Button>
           </div>
           
-          <p className="text-sm text-gray-400">
+          <p className="text-sm text-gray-600 dark:text-gray-400">
             Mathematical operators +, -, *, / are supported
           </p>
         </div>
@@ -84,33 +84,43 @@ const UnixTimeConverter = () => {
         {timeInfo && (
           <div className="grid grid-cols-2 gap-4">
             <div className="space-y-2">
-              <label className="block text-sm text-gray-400">Local</label>
-              <div className="p-2 bg-gray-800 rounded">{timeInfo.local}</div>
+              <label className="block text-sm text-gray-600 dark:text-gray-400">Local</label>
+              <div className="p-2 bg-gray-100 dark:bg-[#1e293b] text-gray-900 dark:text-gray-300 rounded border border-gray-300 dark:border-gray-700 transition-colors">
+                {timeInfo.local}
+              </div>
             </div>
             
             <div className="space-y-2">
-              <label className="block text-sm text-gray-400">Day of Year</label>
-              <div className="p-2 bg-gray-800 rounded">{timeInfo.dayOfYear}</div>
+              <label className="block text-sm text-gray-600 dark:text-gray-400">Day of Year</label>
+              <div className="p-2 bg-gray-100 dark:bg-[#1e293b] text-gray-900 dark:text-gray-300 rounded border border-gray-300 dark:border-gray-700 transition-colors">
+                {timeInfo.dayOfYear}
+              </div>
             </div>
             
             <div className="space-y-2">
-              <label className="block text-sm text-gray-400">UTC (ISO 8601)</label>
-              <div className="p-2 bg-gray-800 rounded">{timeInfo.utc}</div>
+              <label className="block text-sm text-gray-600 dark:text-gray-400">UTC (ISO 8601)</label>
+              <div className="p-2 bg-gray-100 dark:bg-[#1e293b] text-gray-900 dark:text-gray-300 rounded border border-gray-300 dark:border-gray-700 transition-colors">
+                {timeInfo.utc}
+              </div>
             </div>
             
             <div className="space-y-2">
-              <label className="block text-sm text-gray-400">Week of Year</label>
-              <div className="p-2 bg-gray-800 rounded">{timeInfo.weekOfYear}</div>
+              <label className="block text-sm text-gray-600 dark:text-gray-400">Week of Year</label>
+              <div className="p-2 bg-gray-100 dark:bg-[#1e293b] text-gray-900 dark:text-gray-300 rounded border border-gray-300 dark:border-gray-700 transition-colors">
+                {timeInfo.weekOfYear}
+              </div>
             </div>
             
             <div className="space-y-2">
-              <label className="block text-sm text-gray-400">Relative</label>
-              <div className="p-2 bg-gray-800 rounded">{timeInfo.relative}</div>
+              <label className="block text-sm text-gray-600 dark:text-gray-400">Relative</label>
+              <div className="p-2 bg-gray-100 dark:bg-[#1e293b] text-gray-900 dark:text-gray-300 rounded border border-gray-300 dark:border-gray-700 transition-colors">
+                {timeInfo.relative}
+              </div>
             </div>
             
             <div className="space-y-2">
-              <label className="block text-sm text-gray-400">Is Leap Year</label>
-              <div className="p-2 bg-gray-800 rounded">
+              <label className="block text-sm text-gray-600 dark:text-gray-400">Is Leap Year</label>
+              <div className="p-2 bg-gray-100 dark:bg-[#1e293b] text-gray-900 dark:text-gray-300 rounded border border-gray-300 dark:border-gray-700 transition-colors">
                 {timeInfo.isLeapYear ? 'Yes' : 'No'}
               </div>
             </div>

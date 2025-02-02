@@ -32,7 +32,7 @@ const TextDiffTool = () => {
             value={text1}
             onChange={(e) => setText1(e.target.value)}
             placeholder="Original text"
-            className="w-full h-64 bg-gray-800 text-gray-300 p-2 rounded"
+            className="w-full h-64 bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-gray-300 p-2 rounded border border-gray-300 dark:border-gray-700 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-colors"
           />
         </div>
         <div>
@@ -40,13 +40,13 @@ const TextDiffTool = () => {
             value={text2}
             onChange={(e) => setText2(e.target.value)}
             placeholder="Modified text"
-            className="w-full h-64 bg-gray-800 text-gray-300 p-2 rounded"
+           className="w-full h-64 bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-gray-300 p-2 rounded border border-gray-300 dark:border-gray-700 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-colors"
           />
         </div>
         
         <div className="col-span-2">
           <h3 className="text-gray-400 mb-2">Differences:</h3>
-          <div className="bg-gray-800 p-2 rounded">
+          <div className=" bg-gray-100 dark:bg-gray-800 p-2 border border-gray-300 dark:border-gray-700 rounded">
             {computeDiff().map(diff => (
               <div key={diff.line} className="mb-2">
                 <div className="text-red-400">- Line {diff.line}: {diff.text1}</div>

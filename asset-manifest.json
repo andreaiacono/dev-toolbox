@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/dev-toolbox/static/css/main.3fb3327b.css",
+    "main.js": "/dev-toolbox/static/js/main.fab179dc.js",
+    "index.html": "/dev-toolbox/index.html",
+    "main.3fb3327b.css.map": "/dev-toolbox/static/css/main.3fb3327b.css.map",
+    "main.fab179dc.js.map": "/dev-toolbox/static/js/main.fab179dc.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.3fb3327b.css",
+    "static/js/main.fab179dc.js"
+  ]
+}

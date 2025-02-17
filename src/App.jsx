@@ -6,12 +6,14 @@ import Base64Tool from './tools/Base64Tool';
 import TextDiffTool from './tools/TextDiffTool';
 import JSONFormatTool from './tools/JSONFormatTool';
 import UnixTimeConverter from './tools/UnixTimeConverter';
+import UriEncoderDecoder from './tools/UriEncoderDecoder';
 
 const tools = [
   { id: 'base64', name: 'Base64 Decode/Encode', component: Base64Tool },
-  { id: 'textdiff', name: 'Text Diff Checker', component: TextDiffTool },
   { id: 'jsonformat', name: 'JSON Format/Validate', component: JSONFormatTool },
-  { id: 'unixtime', name: 'Unix Time Converter', component: UnixTimeConverter }
+  { id: 'textdiff', name: 'Text Diff Checker', component: TextDiffTool },
+  { id: 'unixtime', name: 'Unix Time Converter', component: UnixTimeConverter },
+  { id: 'uriencoder', name: 'URI Decode/Encode', component: UriEncoderDecoder }
 ];
 
 const App = () => {

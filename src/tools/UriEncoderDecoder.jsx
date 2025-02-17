@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import ToolLayout from '../components/ToolLayout';
 
-const Base64Tool = () => {
+const UriEncoderDecoder = () => {
   const [input, setInput] = useState('');
   const [mode, setMode] = useState('encode');
   const [output, setOutput] = useState('');
@@ -9,8 +9,8 @@ const Base64Tool = () => {
   const handleConvert = () => {
     try {
       const result = mode === 'encode'
-        ? btoa(input)
-        : atob(input);
+        ? encodeURIComponent(input)
+        : decodeURIComponent(input);
       setOutput(result);
     } catch (error) {
       setOutput('Invalid input');
@@ -18,7 +18,7 @@ const Base64Tool = () => {
   };
 
   return (
-    <ToolLayout title="Base64 Encoder/Decoder">
+    <ToolLayout title="URI Encoder/Decoder">
       <div className="space-y-6">
         <div className="flex items-center space-x-6">
           <label className="inline-flex items-center">
@@ -81,4 +81,4 @@ const Base64Tool = () => {
   );
 };
 
-export default Base64Tool;
+export default UriEncoderDecoder;

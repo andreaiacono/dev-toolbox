@@ -3,13 +3,6 @@ import React from 'react';
 const Sidebar = ({ tools, selectedTool, onSelectTool }) => {
   return (
     <div className="w-64 bg-gray-800 p-4 border-r border-gray-700">
-      <div className="mb-4">
-        <input
-          type="text"
-          placeholder="Search Ctrl+L"
-          className="w-full bg-gray-900 text-gray-300 p-2 rounded"
-        />
-      </div>
       <nav>
         {tools.map(tool => (
           <button

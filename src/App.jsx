@@ -48,13 +48,6 @@ const App = () => {
           {/* Sidebar */}
           {isSidebarOpen && (
             <div className="w-64 bg-gray-50 dark:bg-[#252526] border-r border-gray-200 dark:border-gray-700 transition-colors">
-              <div className="p-3">
-                <input
-                  type="text"
-                  placeholder="Search Ctrl+L"
-                  className="w-full bg-gray-100 dark:bg-[#3c3c3c] text-gray-900 dark:text-gray-300 px-3 py-1.5 rounded border border-gray-300 dark:border-gray-700 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-colors"
-                />
-              </div>
               <nav className="space-y-1">
                 {tools.map(tool => (
                   <button

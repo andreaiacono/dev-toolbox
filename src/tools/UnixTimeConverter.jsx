@@ -180,30 +180,6 @@ const UnixTimeConverter = () => {
             )}
           </div>
 
-          {/* Time adjustment controls */}
-          <div className="p-3 bg-gray-50 dark:bg-gray-800 rounded-md border border-gray-200 dark:border-gray-700">
-            <div className="mb-3 flex items-center">
-              <span className="text-sm font-medium text-gray-600 dark:text-gray-400 mr-2">Adjust by:</span>
-              <input
-                type="number"
-                className="w-16 bg-gray-100 dark:bg-[#1e293b] text-gray-900 dark:text-gray-300 p-1 text-center rounded border border-gray-300 dark:border-gray-700 focus:ring-1 focus:ring-blue-500 focus:outline-none transition-colors"
-                value={adjustmentValue}
-                onChange={(e) => setAdjustmentValue(e.target.value)}
-                min="1"
-              />
-            </div>
-
-            <div className="grid grid-cols-2 gap-x-6 gap-y-2">
-              <TimeUnitAdjuster unit="minute" label="Minutes" />
-              <TimeUnitAdjuster unit="hour" label="Hours" />
-              <TimeUnitAdjuster unit="day" label="Days" />
-              <TimeUnitAdjuster unit="week" label="Weeks" />
-              <TimeUnitAdjuster unit="month" label="Months" />
-              <TimeUnitAdjuster unit="year" label="Years" />
-            </div>
-          </div>
-        </div>
-
         {timeInfo && (
           <div className="grid grid-cols-2 gap-4">
             <div className="space-y-2">
@@ -294,6 +270,31 @@ const UnixTimeConverter = () => {
             </div>
           </div>
         )}
+
+          {/* Time adjustment controls */}
+          <div className="p-3 bg-gray-50 dark:bg-gray-800 rounded-md border border-gray-200 dark:border-gray-700">
+            <div className="mb-3 flex items-center">
+              <span className="text-sm font-medium text-gray-600 dark:text-gray-400 mr-2">Adjust by:</span>
+              <input
+                type="number"
+                className="w-16 bg-gray-100 dark:bg-[#1e293b] text-gray-900 dark:text-gray-300 p-1 text-center rounded border border-gray-300 dark:border-gray-700 focus:ring-1 focus:ring-blue-500 focus:outline-none transition-colors"
+                value={adjustmentValue}
+                onChange={(e) => setAdjustmentValue(e.target.value)}
+                min="1"
+              />
+            </div>
+
+            <div className="grid grid-cols-2 gap-x-6 gap-y-2">
+              <TimeUnitAdjuster unit="minute" label="Minutes" />
+              <TimeUnitAdjuster unit="hour" label="Hours" />
+              <TimeUnitAdjuster unit="day" label="Days" />
+              <TimeUnitAdjuster unit="week" label="Weeks" />
+              <TimeUnitAdjuster unit="month" label="Months" />
+              <TimeUnitAdjuster unit="year" label="Years" />
+            </div>
+          </div>
+        </div>
+
 
       </div>
     </ToolLayout>

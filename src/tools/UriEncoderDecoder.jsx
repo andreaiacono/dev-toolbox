@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import ToolLayout from '../components/ToolLayout';
+import TextArea from '../components/TextArea';
 
 const UriEncoderDecoder = () => {
   const [input, setInput] = useState('');
@@ -43,12 +44,11 @@ const UriEncoderDecoder = () => {
 
         <div className="space-y-4">
           <div>
-            <textarea
+          <TextArea
               value={input}
               onChange={(e) => setInput(e.target.value)}
               placeholder="Enter text to encode/decode"
-              className="w-full h-32 bg-gray-100 dark:bg-[#1e1e1e] text-gray-900 dark:text-gray-300 p-3 rounded border border-gray-300 dark:border-gray-700 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 resize-none transition-colors"
-            />
+             />
           </div>
 
           <div className="flex space-x-2">
@@ -70,10 +70,12 @@ const UriEncoderDecoder = () => {
           </div>
 
           <div>
-            <div className="text-sm text-gray-600 dark:text-gray-400 mb-2">Output:</div>
-            <div className="w-full min-h-[8rem] bg-gray-100 dark:bg-[#1e1e1e] text-gray-900 dark:text-gray-300 p-3 rounded border border-gray-300 dark:border-gray-700 transition-colors">
-              {output}
-            </div>
+            <TextArea
+              value={output}
+              onChange={() => { }}
+              placeholder="Output will appear here"
+              readOnly={true}
+            />
           </div>
         </div>
       </div>

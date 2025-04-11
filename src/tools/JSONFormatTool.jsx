@@ -25,8 +25,7 @@ const JSONFormatTool = () => {
         <TextArea
           value={input}
           onChange={(e) => setInput(e.target.value)}
-          placeholder="Enter JSON to format..."
-          label="Input JSON"
+          placeholder="Enter JSON to format"
           monospace="True"
         />
 
@@ -48,7 +47,6 @@ const JSONFormatTool = () => {
             value={output}
             readOnly
             label="Formatted Output"
-            monospace="True"
          />
         )}
       </div>

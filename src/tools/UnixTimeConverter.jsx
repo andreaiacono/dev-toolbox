@@ -6,16 +6,59 @@ const UnixTimeConverter = () => {
   const [timestamp, setTimestamp] = useState('');
   const [adjustmentValue, setAdjustmentValue] = useState('1');
   const [isMilliseconds, setIsMilliseconds] = useState(false);
-  
+  const [customFormat, setCustomFormat] = useState('dd-MM-yyyy, HH:mm');
+  const [formattedDate, setFormattedDate] = useState('');
+  const [showFormatPatterns, setShowFormatPatterns] = useState(false);
+
   // Detect if the timestamp is likely in milliseconds
   useEffect(() => {
     if (timestamp && !isNaN(parseInt(timestamp))) {
       const ts = parseInt(timestamp);
       setIsMilliseconds(ts > 500000000000);
+      updateFormattedDate(ts);
     } else {
       setIsMilliseconds(false);
+      setFormattedDate('');
     }
-  }, [timestamp]);
+  }, [timestamp, customFormat]);
+
+  const updateFormattedDate = (ts) => {
+    try {
+      const timeMs = isMilliseconds ? ts : ts * 1000;
+      const date = new Date(timeMs);
+      setFormattedDate(formatDate(date, customFormat));
+    } catch (err) {
+      setFormattedDate('Invalid format or timestamp');
+    }
+  };
+
+  const formatDate = (date, format) => {
+    const tokens = {
+      yyyy: date.getFullYear(),
+      MM: String(date.getMonth() + 1).padStart(2, '0'),
+      dd: String(date.getDate()).padStart(2, '0'),
+      HH: String(date.getHours()).padStart(2, '0'),
+      mm: String(date.getMinutes()).padStart(2, '0'),
+      ss: String(date.getSeconds()).padStart(2, '0'),
+      SSS: String(date.getMilliseconds()).padStart(3, '0'),
+      XXX: formatTimezoneOffset(date)
+    };
+
+    let result = format;
+    for (const [token, value] of Object.entries(tokens)) {
+      result = result.replace(token, value);
+    }
+
+    return result;
+  };
+
+  const formatTimezoneOffset = (date) => {
+    const tzOffset = date.getTimezoneOffset();
+    const absOffset = Math.abs(tzOffset);
+    const hours = String(Math.floor(absOffset / 60)).padStart(2, '0');
+    const minutes = String(absOffset % 60).padStart(2, '0');
+    return `${tzOffset <= 0 ? '+' : '-'}${hours}:${minutes}`;
+  };
 
   const updateCurrentTime = () => {
     setTimestamp(Math.floor(Date.now() / 1000).toString());
@@ -30,8 +73,8 @@ const UnixTimeConverter = () => {
     const amount = parseInt(adjustmentValue) * (isAddition ? 1 : -1);
     const ts = isMilliseconds ? parseInt(timestamp) : parseInt(timestamp) * 1000;
     const date = new Date(ts);
-    
-    switch(unit) {
+
+    switch (unit) {
       case 'minute':
         date.setMinutes(date.getMinutes() + amount);
         break;
@@ -53,7 +96,7 @@ const UnixTimeConverter = () => {
       default:
         return;
     }
-    
+
     // Set timestamp maintaining the same format (seconds or milliseconds)
     const newTimestamp = Math.floor(date.getTime() / (isMilliseconds ? 1 : 1000)).toString();
     setTimestamp(newTimestamp);
@@ -64,15 +107,13 @@ const UnixTimeConverter = () => {
       // If it's milliseconds, use as-is, otherwise multiply by 1000
       const timeMs = isMilliseconds ? unix : unix * 1000;
       const date = new Date(timeMs);
-      
+
       return {
         local: date.toLocaleString(),
         utc: date.toUTCString(),
-        relative: getRelativeTime(timeMs),
         iso: date.toISOString(),
         dayOfYear: getDayOfYear(date),
         weekOfYear: getWeekOfYear(date),
-        isLeapYear: isLeapYear(date.getFullYear())
       };
     } catch (err) {
       return null;
@@ -93,24 +134,6 @@ const UnixTimeConverter = () => {
     return Math.ceil(diff / oneWeek);
   };
 
-  const isLeapYear = (year) => {
-    return year % 400 === 0 || (year % 100 !== 0 && year % 4 === 0);
-  };
-
-  const getRelativeTime = (timestamp) => {
-    const rtf = new Intl.RelativeTimeFormat('en', { numeric: 'auto' });
-    const diff = timestamp - Date.now();
-    const diffSeconds = Math.round(diff / 1000);
-    const diffMinutes = Math.round(diffSeconds / 60);
-    const diffHours = Math.round(diffMinutes / 60);
-    const diffDays = Math.round(diffHours / 24);
-
-    if (Math.abs(diffSeconds) < 60) return rtf.format(diffSeconds, 'second');
-    if (Math.abs(diffMinutes) < 60) return rtf.format(diffMinutes, 'minute');
-    if (Math.abs(diffHours) < 24) return rtf.format(diffHours, 'hour');
-    return rtf.format(diffDays, 'day');
-  };
-
   const timeInfo = timestamp ? getTimeInfo(parseInt(timestamp)) : null;
 
   const TimeUnitAdjuster = ({ unit, label }) => (
@@ -122,6 +145,15 @@ const UnixTimeConverter = () => {
       </div>
     </div>
   );
+
+  // Format examples for quick selection
+  const formatExamples = [
+    { label: 'Custom', format: 'dd-MM-yyyy, HH:mm' },
+    { label: 'ISO-8601', format: 'yyyy-MM-ddTHH:mm:ss.SSSXXX' },
+    { label: 'US Short Date', format: 'MM/dd/yyyy' },
+    { label: 'EU Short Date', format: 'dd/MM/yyyy' },
+    { label: 'JP Short Date', format: 'yyyy/MM/dd' },
+  ];
 
   return (
     <ToolLayout title="Unix Time Converter">
@@ -138,17 +170,16 @@ const UnixTimeConverter = () => {
               />
               <Button onClick={updateCurrentTime}>Now</Button>
             </div>
-            
-            {/* Milliseconds indicator */}
+
             {timestamp && !isNaN(parseInt(timestamp)) && (
               <div className="text-sm text-gray-500 dark:text-gray-400">
-                {isMilliseconds 
+                {isMilliseconds
                   ? "Detected timestamp in milliseconds"
                   : "Detected timestamp in seconds"}
               </div>
             )}
           </div>
-          
+
           {/* Time adjustment controls */}
           <div className="p-3 bg-gray-50 dark:bg-gray-800 rounded-md border border-gray-200 dark:border-gray-700">
             <div className="mb-3 flex items-center">
@@ -161,7 +192,7 @@ const UnixTimeConverter = () => {
                 min="1"
               />
             </div>
-            
+
             <div className="grid grid-cols-2 gap-x-6 gap-y-2">
               <TimeUnitAdjuster unit="minute" label="Minutes" />
               <TimeUnitAdjuster unit="hour" label="Hours" />
@@ -181,43 +212,89 @@ const UnixTimeConverter = () => {
                 {timeInfo.local}
               </div>
             </div>
-            
+
             <div className="space-y-2">
               <label className="block text-sm text-gray-600 dark:text-gray-400">Day of Year</label>
               <div className="p-2 bg-gray-100 dark:bg-[#1e293b] text-gray-900 dark:text-gray-300 rounded border border-gray-300 dark:border-gray-700 transition-colors">
                 {timeInfo.dayOfYear}
               </div>
             </div>
-            
+
             <div className="space-y-2">
-              <label className="block text-sm text-gray-600 dark:text-gray-400">UTC (ISO 8601)</label>
+              <label className="block text-sm text-gray-600 dark:text-gray-400">UTC</label>
               <div className="p-2 bg-gray-100 dark:bg-[#1e293b] text-gray-900 dark:text-gray-300 rounded border border-gray-300 dark:border-gray-700 transition-colors">
                 {timeInfo.utc}
               </div>
             </div>
-            
+
             <div className="space-y-2">
               <label className="block text-sm text-gray-600 dark:text-gray-400">Week of Year</label>
               <div className="p-2 bg-gray-100 dark:bg-[#1e293b] text-gray-900 dark:text-gray-300 rounded border border-gray-300 dark:border-gray-700 transition-colors">
                 {timeInfo.weekOfYear}
               </div>
             </div>
-            
-            <div className="space-y-2">
-              <label className="block text-sm text-gray-600 dark:text-gray-400">Relative</label>
-              <div className="p-2 bg-gray-100 dark:bg-[#1e293b] text-gray-900 dark:text-gray-300 rounded border border-gray-300 dark:border-gray-700 transition-colors">
-                {timeInfo.relative}
+          </div>
+        )}
+
+        {timestamp && !isNaN(parseInt(timestamp)) && (
+          <div className="p-3 bg-gray-50 dark:bg-gray-800 rounded-md border border-gray-200 dark:border-gray-700">
+            <div className="mb-2">
+              <label className="block text-sm font-medium text-gray-600 dark:text-gray-400 mb-1">Custom Format</label>
+              <div className="flex space-x-2">
+                <input
+                  type="text"
+                  value={customFormat}
+                  onChange={(e) => setCustomFormat(e.target.value)}
+                  className="flex-1 bg-gray-100 dark:bg-[#1e293b] text-gray-900 dark:text-gray-300 p-2 rounded border border-gray-300 dark:border-gray-700 focus:ring-1 focus:ring-blue-500 focus:outline-none transition-colors"
+                  placeholder="Format pattern..."
+                />
+              </div>
+
+              <div className="mt-2 flex flex-wrap gap-2">
+                {formatExamples.map((example, index) => (
+                  <Button
+                    key={index}
+                    onClick={() => setCustomFormat(example.format)}
+                    className="px-2 py-1 text-xs"
+                  >
+                    {example.label}
+                  </Button>
+                ))}
               </div>
             </div>
-            
-            <div className="space-y-2">
-              <label className="block text-sm text-gray-600 dark:text-gray-400">Is Leap Year</label>
-              <div className="p-2 bg-gray-100 dark:bg-[#1e293b] text-gray-900 dark:text-gray-300 rounded border border-gray-300 dark:border-gray-700 transition-colors">
-                {timeInfo.isLeapYear ? 'Yes' : 'No'}
+
+            <div className="mt-3">
+              <label className="block text-sm text-gray-600 dark:text-gray-400 mb-1">Result</label>
+              <div className="p-2 bg-gray-100 dark:bg-[#1e293b] text-gray-900 dark:text-gray-300 rounded border border-gray-300 dark:border-gray-700 transition-colors min-h-8">
+                {formattedDate}
+              </div>
+            </div>
+
+            <div className="mt-3 text-xs text-gray-500 dark:text-gray-400">
+              <button
+                onClick={() => setShowFormatPatterns(!showFormatPatterns)}
+                className="font-medium flex items-center w-full justify-between cursor-pointer hover:text-gray-700 dark:hover:text-gray-300 transition-colors"
+              >
+                <span>Format Patterns</span>
+                <span className={`transform transition-transform ${showFormatPatterns ? 'rotate-180' : ''}`}>▼</span>
+              </button>
+
+              <div className={`overflow-hidden transition-all duration-300 ease-in-out ${showFormatPatterns ? 'max-h-96 mt-2 opacity-100' : 'max-h-0 opacity-0'}`}>
+                <div className="grid grid-cols-2 gap-x-4 gap-y-1">
+                  <div>yyyy: Year (2023)</div>
+                  <div>MM: Month (01-12)</div>
+                  <div>dd: Day (01-31)</div>
+                  <div>HH: Hours (00-23)</div>
+                  <div>mm: Minutes (00-59)</div>
+                  <div>ss: Seconds (00-59)</div>
+                  <div>SSS: Milliseconds (000-999)</div>
+                  <div>XXX: Timezone offset (+01:00)</div>
+                </div>
               </div>
             </div>
           </div>
         )}
+
       </div>
     </ToolLayout>
   );

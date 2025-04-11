@@ -180,121 +180,122 @@ const UnixTimeConverter = () => {
             )}
           </div>
 
-        {timeInfo && (
-          <div className="grid grid-cols-2 gap-4">
-            <div className="space-y-2">
-              <label className="block text-sm text-gray-600 dark:text-gray-400">Local</label>
-              <div className="p-2 bg-gray-100 dark:bg-[#1e293b] text-gray-900 dark:text-gray-300 rounded border border-gray-300 dark:border-gray-700 transition-colors">
-                {timeInfo.local}
-              </div>
-            </div>
-
-            <div className="space-y-2">
-              <label className="block text-sm text-gray-600 dark:text-gray-400">Day of Year</label>
-              <div className="p-2 bg-gray-100 dark:bg-[#1e293b] text-gray-900 dark:text-gray-300 rounded border border-gray-300 dark:border-gray-700 transition-colors">
-                {timeInfo.dayOfYear}
-              </div>
-            </div>
-
-            <div className="space-y-2">
-              <label className="block text-sm text-gray-600 dark:text-gray-400">UTC</label>
-              <div className="p-2 bg-gray-100 dark:bg-[#1e293b] text-gray-900 dark:text-gray-300 rounded border border-gray-300 dark:border-gray-700 transition-colors">
-                {timeInfo.utc}
-              </div>
-            </div>
-
-            <div className="space-y-2">
-              <label className="block text-sm text-gray-600 dark:text-gray-400">Week of Year</label>
-              <div className="p-2 bg-gray-100 dark:bg-[#1e293b] text-gray-900 dark:text-gray-300 rounded border border-gray-300 dark:border-gray-700 transition-colors">
-                {timeInfo.weekOfYear}
-              </div>
-            </div>
-          </div>
-        )}
-
-        {timestamp && !isNaN(parseInt(timestamp)) && (
-          <div className="p-3 bg-gray-50 dark:bg-gray-800 rounded-md border border-gray-200 dark:border-gray-700">
-            <div className="mb-2">
-              <label className="block text-sm font-medium text-gray-600 dark:text-gray-400 mb-1">Custom Format</label>
-              <div className="flex space-x-2">
-                <input
-                  type="text"
-                  value={customFormat}
-                  onChange={(e) => setCustomFormat(e.target.value)}
-                  className="flex-1 bg-gray-100 dark:bg-[#1e293b] text-gray-900 dark:text-gray-300 p-2 rounded border border-gray-300 dark:border-gray-700 focus:ring-1 focus:ring-blue-500 focus:outline-none transition-colors"
-                  placeholder="Format pattern..."
-                />
+          {timeInfo && (
+            <div className="grid grid-cols-2 gap-4">
+              <div className="space-y-2">
+                <label className="block text-sm text-gray-600 dark:text-gray-400">Local</label>
+                <div className="p-2 bg-gray-100 dark:bg-[#1e293b] text-gray-900 dark:text-gray-300 rounded border border-gray-300 dark:border-gray-700 transition-colors">
+                  {timeInfo.local}
+                </div>
               </div>
 
-              <div className="mt-2 flex flex-wrap gap-2">
-                {formatExamples.map((example, index) => (
-                  <Button
-                    key={index}
-                    onClick={() => setCustomFormat(example.format)}
-                    className="px-2 py-1 text-xs"
-                  >
-                    {example.label}
-                  </Button>
-                ))}
+              <div className="space-y-2">
+                <label className="block text-sm text-gray-600 dark:text-gray-400">Day of Year</label>
+                <div className="p-2 bg-gray-100 dark:bg-[#1e293b] text-gray-900 dark:text-gray-300 rounded border border-gray-300 dark:border-gray-700 transition-colors">
+                  {timeInfo.dayOfYear}
+                </div>
               </div>
-            </div>
 
-            <div className="mt-3">
-              <label className="block text-sm text-gray-600 dark:text-gray-400 mb-1">Result</label>
-              <div className="p-2 bg-gray-100 dark:bg-[#1e293b] text-gray-900 dark:text-gray-300 rounded border border-gray-300 dark:border-gray-700 transition-colors min-h-8">
-                {formattedDate}
+              <div className="space-y-2">
+                <label className="block text-sm text-gray-600 dark:text-gray-400">UTC</label>
+                <div className="p-2 bg-gray-100 dark:bg-[#1e293b] text-gray-900 dark:text-gray-300 rounded border border-gray-300 dark:border-gray-700 transition-colors">
+                  {timeInfo.utc}
+                </div>
               </div>
-            </div>
 
-            <div className="mt-3 text-xs text-gray-500 dark:text-gray-400">
-              <button
-                onClick={() => setShowFormatPatterns(!showFormatPatterns)}
-                className="font-medium flex items-center w-full justify-between cursor-pointer hover:text-gray-700 dark:hover:text-gray-300 transition-colors"
-              >
-                <span>Format Patterns</span>
-                <span className={`transform transition-transform ${showFormatPatterns ? 'rotate-180' : ''}`}>▼</span>
-              </button>
-
-              <div className={`overflow-hidden transition-all duration-300 ease-in-out ${showFormatPatterns ? 'max-h-96 mt-2 opacity-100' : 'max-h-0 opacity-0'}`}>
-                <div className="grid grid-cols-2 gap-x-4 gap-y-1">
-                  <div>yyyy: Year (2023)</div>
-                  <div>MM: Month (01-12)</div>
-                  <div>dd: Day (01-31)</div>
-                  <div>HH: Hours (00-23)</div>
-                  <div>mm: Minutes (00-59)</div>
-                  <div>ss: Seconds (00-59)</div>
-                  <div>SSS: Milliseconds (000-999)</div>
-                  <div>XXX: Timezone offset (+01:00)</div>
+              <div className="space-y-2">
+                <label className="block text-sm text-gray-600 dark:text-gray-400">Week of Year</label>
+                <div className="p-2 bg-gray-100 dark:bg-[#1e293b] text-gray-900 dark:text-gray-300 rounded border border-gray-300 dark:border-gray-700 transition-colors">
+                  {timeInfo.weekOfYear}
                 </div>
               </div>
             </div>
-          </div>
-        )}
+          )}
+
+          {timestamp && !isNaN(parseInt(timestamp)) && (
+            <div className="p-3 bg-gray-50 dark:bg-gray-800 rounded-md border border-gray-200 dark:border-gray-700">
+              <div className="mb-2">
+                <label className="block text-sm font-medium text-gray-600 dark:text-gray-400 mb-1">Custom Format</label>
+                <div className="flex space-x-2">
+                  <input
+                    type="text"
+                    value={customFormat}
+                    onChange={(e) => setCustomFormat(e.target.value)}
+                    className="flex-1 bg-gray-100 dark:bg-[#1e293b] text-gray-900 dark:text-gray-300 p-2 rounded border border-gray-300 dark:border-gray-700 focus:ring-1 focus:ring-blue-500 focus:outline-none transition-colors"
+                    placeholder="Format pattern..."
+                  />
+                </div>
+
+                <div className="mt-2 flex flex-wrap gap-2">
+                  {formatExamples.map((example, index) => (
+                    <Button
+                      key={index}
+                      onClick={() => setCustomFormat(example.format)}
+                      className="px-2 py-1 text-xs"
+                    >
+                      {example.label}
+                    </Button>
+                  ))}
+                </div>
+              </div>
+
+              <div className="mt-3">
+                <label className="block text-sm text-gray-600 dark:text-gray-400 mb-1">Result</label>
+                <div className="p-2 bg-gray-100 dark:bg-[#1e293b] text-gray-900 dark:text-gray-300 rounded border border-gray-300 dark:border-gray-700 transition-colors min-h-8">
+                  {formattedDate}
+                </div>
+              </div>
+
+              <div className="mt-3 text-xs text-gray-500 dark:text-gray-400">
+                <button
+                  onClick={() => setShowFormatPatterns(!showFormatPatterns)}
+                  className="font-medium flex items-center w-full justify-between cursor-pointer hover:text-gray-700 dark:hover:text-gray-300 transition-colors"
+                >
+                  <span>Format Patterns</span>
+                  <span className={`transform transition-transform ${showFormatPatterns ? 'rotate-180' : ''}`}>▼</span>
+                </button>
+
+                <div className={`overflow-hidden transition-all duration-300 ease-in-out ${showFormatPatterns ? 'max-h-96 mt-2 opacity-100' : 'max-h-0 opacity-0'}`}>
+                  <div className="grid grid-cols-2 gap-x-4 gap-y-1">
+                    <div>yyyy: Year (2023)</div>
+                    <div>MM: Month (01-12)</div>
+                    <div>dd: Day (01-31)</div>
+                    <div>HH: Hours (00-23)</div>
+                    <div>mm: Minutes (00-59)</div>
+                    <div>ss: Seconds (00-59)</div>
+                    <div>SSS: Milliseconds (000-999)</div>
+                    <div>XXX: Timezone offset (+01:00)</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
 
           {/* Time adjustment controls */}
-          <div className="p-3 bg-gray-50 dark:bg-gray-800 rounded-md border border-gray-200 dark:border-gray-700">
-            <div className="mb-3 flex items-center">
-              <span className="text-sm font-medium text-gray-600 dark:text-gray-400 mr-2">Adjust by:</span>
-              <input
-                type="number"
-                className="w-16 bg-gray-100 dark:bg-[#1e293b] text-gray-900 dark:text-gray-300 p-1 text-center rounded border border-gray-300 dark:border-gray-700 focus:ring-1 focus:ring-blue-500 focus:outline-none transition-colors"
-                value={adjustmentValue}
-                onChange={(e) => setAdjustmentValue(e.target.value)}
-                min="1"
-              />
-            </div>
+          {timeInfo && (
+            <div className="p-3 bg-gray-50 dark:bg-gray-800 rounded-md border border-gray-200 dark:border-gray-700">
+              <div className="mb-3 flex items-center">
+                <span className="text-sm font-medium text-gray-600 dark:text-gray-400 mr-2">Adjust by:</span>
+                <input
+                  type="number"
+                  className="w-16 bg-gray-100 dark:bg-[#1e293b] text-gray-900 dark:text-gray-300 p-1 text-center rounded border border-gray-300 dark:border-gray-700 focus:ring-1 focus:ring-blue-500 focus:outline-none transition-colors"
+                  value={adjustmentValue}
+                  onChange={(e) => setAdjustmentValue(e.target.value)}
+                  min="1"
+                />
+              </div>
 
-            <div className="grid grid-cols-2 gap-x-6 gap-y-2">
-              <TimeUnitAdjuster unit="minute" label="Minutes" />
-              <TimeUnitAdjuster unit="hour" label="Hours" />
-              <TimeUnitAdjuster unit="day" label="Days" />
-              <TimeUnitAdjuster unit="week" label="Weeks" />
-              <TimeUnitAdjuster unit="month" label="Months" />
-              <TimeUnitAdjuster unit="year" label="Years" />
-            </div>
-          </div>
+              <div className="grid grid-cols-2 gap-x-6 gap-y-2">
+                <TimeUnitAdjuster unit="minute" label="Minutes" />
+                <TimeUnitAdjuster unit="hour" label="Hours" />
+                <TimeUnitAdjuster unit="day" label="Days" />
+                <TimeUnitAdjuster unit="week" label="Weeks" />
+                <TimeUnitAdjuster unit="month" label="Months" />
+                <TimeUnitAdjuster unit="year" label="Years" />
+              </div>
+            </div>)
+          }
         </div>
-
 
       </div>
     </ToolLayout>

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import ToolLayout from '../components/ToolLayout';
 import Button from '../components/Button';
+import CopyButton from "../components/CopyButton";
 
 const UnixTimeConverter = () => {
   const [timestamp, setTimestamp] = useState('');
@@ -185,28 +186,28 @@ const UnixTimeConverter = () => {
               <div className="space-y-2">
                 <label className="block text-sm text-gray-600 dark:text-gray-400">Local</label>
                 <div className="p-2 bg-gray-100 dark:bg-[#1e293b] text-gray-900 dark:text-gray-300 rounded border border-gray-300 dark:border-gray-700 transition-colors">
-                  {timeInfo.local}
+                  {timeInfo.local}<CopyButton text={timeInfo.local} />
                 </div>
               </div>
 
               <div className="space-y-2">
                 <label className="block text-sm text-gray-600 dark:text-gray-400">Day of Year</label>
                 <div className="p-2 bg-gray-100 dark:bg-[#1e293b] text-gray-900 dark:text-gray-300 rounded border border-gray-300 dark:border-gray-700 transition-colors">
-                  {timeInfo.dayOfYear}
+                  {timeInfo.dayOfYear}<CopyButton text={timeInfo.dayOfYear} />
                 </div>
               </div>
 
               <div className="space-y-2">
                 <label className="block text-sm text-gray-600 dark:text-gray-400">UTC</label>
                 <div className="p-2 bg-gray-100 dark:bg-[#1e293b] text-gray-900 dark:text-gray-300 rounded border border-gray-300 dark:border-gray-700 transition-colors">
-                  {timeInfo.utc}
+                  {timeInfo.utc}<CopyButton text={timeInfo.utc} />
                 </div>
               </div>
 
               <div className="space-y-2">
                 <label className="block text-sm text-gray-600 dark:text-gray-400">Week of Year</label>
                 <div className="p-2 bg-gray-100 dark:bg-[#1e293b] text-gray-900 dark:text-gray-300 rounded border border-gray-300 dark:border-gray-700 transition-colors">
-                  {timeInfo.weekOfYear}
+                  {timeInfo.weekOfYear}<CopyButton text={timeInfo.weekOfYear} />
                 </div>
               </div>
             </div>
@@ -242,7 +243,7 @@ const UnixTimeConverter = () => {
               <div className="mt-3">
                 <label className="block text-sm text-gray-600 dark:text-gray-400 mb-1">Result</label>
                 <div className="p-2 bg-gray-100 dark:bg-[#1e293b] text-gray-900 dark:text-gray-300 rounded border border-gray-300 dark:border-gray-700 transition-colors min-h-8">
-                  {formattedDate}
+                  {formattedDate}<CopyButton text={formattedDate} />
                 </div>
               </div>
 
